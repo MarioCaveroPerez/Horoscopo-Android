@@ -47,8 +47,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //SearchBar Mansour
-
     implementation("com.github.IgniteCoders:SearchBarView:1.0.1")
 
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
 

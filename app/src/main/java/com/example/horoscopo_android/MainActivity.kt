@@ -5,23 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
-    val horoscopoList: List<Horoscopo> = listOf(
-        Horoscopo("Aries", 0, 0, 0),
-        Horoscopo("Tauro", 0, 0, 0),
-        Horoscopo("Geminis", 0, 0, 0),
-        Horoscopo("Cancer", 0, 0, 0),
-        Horoscopo("Leo", 0, 0, 0),
-        Horoscopo("Virgo", 0, 0, 0),
-        Horoscopo("Libra", 0, 0, 0),
-        Horoscopo("Escorpio", 0, 0, 0),
-        Horoscopo("Sagitario", 0, 0, 0),
-        Horoscopo("Capricornio", 0, 0, 0),
-        Horoscopo("Acuario", 0, 0, 0),
-        Horoscopo("Piscis", 0, 0, 0),
-    )
+    lateinit var recyclerView: RecyclerView
+
+    val horoscopoList: List<Horoscopo> = Horoscopo.getAll()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,5 +23,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        recyclerView = findViewById(R.id.rvHoroscope)
+        val adapter = HoroscopeAdapter(horoscopoList)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
