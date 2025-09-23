@@ -45,4 +45,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //SearchBar Mansour
+
+    implementation("com.github.IgniteCoders:SearchBarView:1.0.1")
+
 }
+
