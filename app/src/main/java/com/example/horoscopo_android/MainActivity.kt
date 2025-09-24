@@ -1,5 +1,6 @@
 package com.example.horoscopo_android
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputBinding
 import androidx.activity.enableEdgeToEdge
@@ -37,7 +38,14 @@ class MainActivity : AppCompatActivity() {
         sbvHoroscopo = findViewById(R.id.sbvHoroscope)
         recyclerView = findViewById(R.id.rvHoroscope)
 
-        adapter = HoroscopeAdapter(horoscopoList)
+        adapter = HoroscopeAdapter(horoscopoList) { selectedHoroscopo ->
+            val intent = Intent(this, DetailHoroscopoActivity::class.java).apply {
+                putExtra("name", getString(selectedHoroscopo.name))
+                putExtra("dates", getString(selectedHoroscopo.dates))
+                putExtra("icon", selectedHoroscopo.icon)
+            }
+            startActivity(intent)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 

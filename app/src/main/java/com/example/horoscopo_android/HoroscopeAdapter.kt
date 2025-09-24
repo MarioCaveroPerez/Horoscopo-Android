@@ -1,19 +1,20 @@
 package com.example.horoscopo_android
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class HoroscopeAdapter(
-    var horoscopeList: List<Horoscopo>
+    var horoscopeList: List<Horoscopo>,
+    val onItemClick: (Horoscopo) -> Unit
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): HoroscopeViewHolder {
-        return HoroscopeViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_horoscopo, parent, false)
-        )
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_horoscopo, parent, false)
+        return HoroscopeViewHolder(view)
     }
 
     override fun onBindViewHolder(
@@ -22,6 +23,10 @@ class HoroscopeAdapter(
     ) {
         val item = horoscopeList[position]
         holder.bind(item)
+
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
+        }
     }
 
     override fun getItemCount() = horoscopeList.size
