@@ -44,17 +44,31 @@ class DetailHoroscopoActivity : AppCompatActivity() {
         dailyDescriptionTextView.text = "Cargando predicción..."
 
 
-        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        val sign = name?.replaceFirstChar { it.uppercase() } ?: return
+        val day = "today"
+        val sign = when(name?.lowercase()) {
+            "aries" -> "aries"
+            "tauro" -> "taurus"
+            "geminis" -> "gemini"
+            "cancer" -> "cancer"
+            "leo" -> "leo"
+            "virgo" -> "virgo"
+            "libra" -> "libra"
+            "escorpio" -> "scorpio"
+            "sagitario" -> "sagittarius"
+            "capricornio" -> "capricorn"
+            "acuario" -> "aquarius"
+            "piscis" -> "pisces"
+            else -> "aries"
+        }
 
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val apiService = getRetrofit().create(ApiService::class.java)
-                val response = apiService.getHoroscopo(sign, today)
+                val response = apiService.getHoroscopo(sign, day)
 
                 withContext(Dispatchers.Main) {
-                    dailyDescriptionTextView.text = response.descriptionHoroscopo
+                    dailyDescriptionTextView.text = response.data.descriptionHoroscopo
                 }
             } catch (e: Exception) {
                 e.printStackTrace() // Para ver el error real
