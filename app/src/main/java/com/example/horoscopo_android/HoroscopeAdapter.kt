@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class HoroscopeAdapter(
-    val horoscopeList: List<Horoscopo>
+    var horoscopeList: List<Horoscopo>
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,4 +25,9 @@ class HoroscopeAdapter(
     }
 
     override fun getItemCount() = horoscopeList.size
+
+    fun updateList(newList: List<Horoscopo>) {
+        horoscopeList = newList
+        notifyDataSetChanged()
+    }
 }

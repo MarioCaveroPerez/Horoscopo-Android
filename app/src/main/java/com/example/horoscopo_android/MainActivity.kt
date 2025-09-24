@@ -1,16 +1,26 @@
 package com.example.horoscopo_android
 
 import android.os.Bundle
+import android.view.inputmethod.InputBinding
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.search.SearchBar
+import com.ignite.material.searchbarview.SearchBarView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.Normalizer
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var sbvHoroscopo: SearchBarView
     lateinit var recyclerView: RecyclerView
+    lateinit var adapter: HoroscopeAdapter
 
     val horoscopoList: List<Horoscopo> = Horoscopo.getAll()
 
@@ -24,9 +34,36 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        sbvHoroscopo = findViewById(R.id.sbvHoroscope)
         recyclerView = findViewById(R.id.rvHoroscope)
-        val adapter = HoroscopeAdapter(horoscopoList)
+
+        adapter = HoroscopeAdapter(horoscopoList)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        initUI()
     }
+
+    private fun initUI() {
+        sbvHoroscopo.setOnQueryTextChangeListener { query ->
+            searByName(query)
+        }
+    }
+
+    private fun searByName(query: String) {
+        val normalizedQuery = normalize(query)
+
+        val filteredList = horoscopoList.filter { horoscopo ->
+            val horoscopoName = getString(horoscopo.name)
+            normalize(horoscopoName).contains(normalizedQuery)
+        }
+        adapter.updateList(filteredList)
+    }
+
+    private fun normalize(text: String): String {
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+            .replace("\\p{Mn}+".toRegex(), "") // Elimina marcas diacríticas (acentos)
+            .lowercase()
+    }
+
 }
