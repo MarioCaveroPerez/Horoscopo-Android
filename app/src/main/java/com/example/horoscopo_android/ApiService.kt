@@ -9,5 +9,4 @@ interface ApiService {
         @Query("sign")sign: String,
         @Query("day")date: String
     ): HoroscopoDetailResponse
-    //probando cambios
 }

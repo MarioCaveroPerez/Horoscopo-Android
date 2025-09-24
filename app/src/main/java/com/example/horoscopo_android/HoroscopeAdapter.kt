@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class HoroscopeAdapter(
     var horoscopeList: List<Horoscopo>,
-
-    var mario: List<Horoscopo>,
     val onItemClick: (Horoscopo) -> Unit
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
