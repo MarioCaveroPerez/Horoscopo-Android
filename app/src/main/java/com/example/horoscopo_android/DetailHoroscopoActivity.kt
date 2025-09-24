@@ -7,8 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DetailHoroscopoActivity : AppCompatActivity() {
 
@@ -23,20 +30,36 @@ class DetailHoroscopoActivity : AppCompatActivity() {
         }
         val imageView = findViewById<ImageView>(R.id.imageHoroscopoDetail)
         val nameTextView = findViewById<TextView>(R.id.tvHoroscopoNameDetail)
-        val descriptionTextView = findViewById<TextView>(R.id.tvDateHoroscopoDetail)
+        val dateTextView = findViewById<TextView>(R.id.tvDateHoroscopoDetail)
+        val dailyDescriptionTextView = findViewById<TextView>(R.id.tvDescriptionHoroscopoDetail)
 
-        // Recuperar datos del Intent
         val name = intent.getStringExtra("name")
         val dates = intent.getStringExtra("dates")
         val iconResId = intent.getIntExtra("icon", -1)
 
-        // ✅ Mostramos la información
-        if (iconResId != -1) {
-            imageView.setImageResource(iconResId)
-        }
+        if (iconResId != -1) imageView.setImageResource(iconResId)
 
         nameTextView.text = name
-        descriptionTextView.text = dates
+        dateTextView.text = dates
+
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val sign = name?.replaceFirstChar { it.uppercase() } ?: return
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val apiService = getRetrofit().create(ApiService::class.java)
+                val response = apiService.getHoroscopo(sign, today)
+
+                withContext(Dispatchers.Main) {
+                    dailyDescriptionTextView.text = response.descriptionHoroscopo
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    dailyDescriptionTextView.text = "Error al cargar la predicción."
+                }
+            }
+        }
     }
 
     private fun getRetrofit(): Retrofit{
