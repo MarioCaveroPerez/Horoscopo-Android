@@ -7,6 +7,6 @@ interface ApiService {
     @GET("/api/v1/get-horoscope/daily")
     suspend fun getHoroscopo(
         @Query("sign")sign: String,
-        @Query("date")date: String
+        @Query("day")date: String
     ): HoroscopoDetailResponse
 }

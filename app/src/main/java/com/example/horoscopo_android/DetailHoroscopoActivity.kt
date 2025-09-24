@@ -41,6 +41,8 @@ class DetailHoroscopoActivity : AppCompatActivity() {
 
         nameTextView.text = name
         dateTextView.text = dates
+        dailyDescriptionTextView.text = "Cargando predicción..."
+
 
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val sign = name?.replaceFirstChar { it.uppercase() } ?: return
@@ -55,6 +57,7 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                     dailyDescriptionTextView.text = response.descriptionHoroscopo
                 }
             } catch (e: Exception) {
+                e.printStackTrace() // Para ver el error real
                 withContext(Dispatchers.Main) {
                     dailyDescriptionTextView.text = "Error al cargar la predicción."
                 }
