@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".DetailHoroscopoActivity">
 
+
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="0dp"
@@ -17,6 +18,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="12dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_heart_outline"
+        app:tint="@color/red"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvImageHoroscopo"

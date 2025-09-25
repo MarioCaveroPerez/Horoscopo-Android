@@ -1,9 +1,12 @@
 package com.example.horoscopo_android
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputBinding
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,6 +28,21 @@ class MainActivity : AppCompatActivity() {
 
     val horoscopoList: List<Horoscopo> = Horoscopo.getAll()
 
+    private val detailLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val id = result.data?.getStringExtra("id")
+            val isFavorite = result.data?.getBooleanExtra("isFavorite", false) ?: false
+
+            // Actualizamos la lista y refrescamos adapter
+            id?.let {
+                val prefs = getSharedPreferences("favorites", Context.MODE_PRIVATE)
+                prefs.edit().putBoolean(it, isFavorite).apply()
+                adapter.notifyDataSetChanged() // Se recargará el icono de favoritos
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -41,11 +59,12 @@ class MainActivity : AppCompatActivity() {
 
         adapter = HoroscopeAdapter(horoscopoList) { selectedHoroscopo ->
             val intent = Intent(this, DetailHoroscopoActivity::class.java).apply {
+                putExtra("id", selectedHoroscopo.id)
                 putExtra("name", getString(selectedHoroscopo.name))
                 putExtra("dates", getString(selectedHoroscopo.dates))
                 putExtra("icon", selectedHoroscopo.icon)
             }
-            startActivity(intent)
+            detailLauncher.launch(intent)
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
