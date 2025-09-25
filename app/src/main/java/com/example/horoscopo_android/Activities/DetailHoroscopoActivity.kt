@@ -1,7 +1,5 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.Activities
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -12,16 +10,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.example.horoscopo_android.Adapters.DescriptionPagerAdapter
+import com.example.horoscopo_android.Utils.ApiService
+import com.example.horoscopo_android.R
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.Translator
+import com.google.mlkit.nl.translate.TranslatorOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import java.util.Locale
 
 class DetailHoroscopoActivity : AppCompatActivity() {
 
+    val currentLocale = Locale.getDefault()
+    val languageCode = currentLocale.language
     private lateinit var btnFavorite: ImageButton
     private var isFavorite = false
     private lateinit var signName: String
@@ -38,10 +45,27 @@ class DetailHoroscopoActivity : AppCompatActivity() {
             insets
         }
 
+        val btnShare = findViewById<ImageButton>(R.id.btnShare)
+        btnShare.setOnClickListener {
+            // Obtener el texto de la predicción diaria (posición 0)
+            val currentPosition = viewPager.currentItem
+
+            // Obtener el texto correspondiente de esa posición
+            val textToShare = adapter.descriptions.getOrNull(currentPosition) ?: "No hay predicción disponible"
+
+            // Crear el Intent para compartir
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, textToShare)
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(shareIntent, "Compartir predicción"))
+        }
+
         btnFavorite = findViewById(R.id.btnFavorite)
         signName = intent.getStringExtra("id") ?: "aries"
 
-        val prefs = getSharedPreferences("favorites", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("favorites", MODE_PRIVATE)
         isFavorite = prefs.getBoolean(signName, false)
         updateFavoriteIcon()
 
@@ -54,7 +78,7 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                 putExtra("id", signName)
                 putExtra("isFavorite", isFavorite)
             }
-            setResult(Activity.RESULT_OK, resultIntent)
+            setResult(RESULT_OK, resultIntent)
         }
 
         val imageView = findViewById<ImageView>(R.id.imageHoroscopoDetail)
@@ -104,6 +128,12 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                 val weeklyResponse = apiService.getHoroscopoweekly(sign)
                 val monthlyResponse = apiService.getHoroscopomonthly(sign)
 
+                val dailyText = dailyResponse.data.descriptionHoroscopo
+                val weeklyText = weeklyResponse.data.descriptionHoroscopo
+                val monthlyText = monthlyResponse.data.descriptionHoroscopo
+
+
+
                 withContext(Dispatchers.Main) {
                     adapter = DescriptionPagerAdapter(
                         listOf(
@@ -140,5 +170,32 @@ class DetailHoroscopoActivity : AppCompatActivity() {
             .baseUrl("https://horoscope-app-api.vercel.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+    fun translateText(inputText: String, targetLanguage: String, onResult: (String) -> Unit) {
+        // Crear opciones de traductor
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.ENGLISH) // asumiendo que la API siempre da inglés
+            .setTargetLanguage(targetLanguage)
+            .build()
+
+        val translator: Translator = Translation.getClient(options)
+
+        // Descargar modelo si no está disponible
+        translator.downloadModelIfNeeded()
+            .addOnSuccessListener {
+                // Traducir el texto
+                translator.translate(inputText)
+                    .addOnSuccessListener { translatedText ->
+                        onResult(translatedText)
+                    }
+                    .addOnFailureListener { e ->
+                        e.printStackTrace()
+                        onResult(inputText) // fallback a texto original
+                    }
+            }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                onResult(inputText) // fallback a texto original
+            }
     }
 }

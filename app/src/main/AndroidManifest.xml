@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HoroscopoAndroid">
         <activity
-            android:name=".DetailHoroscopoActivity"
+            android:name=".Activities.DetailHoroscopoActivity"
             android:theme="@style/Theme.HoroscopoAndroid"
             android:exported="false" />
         <activity

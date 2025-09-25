@@ -1,11 +1,11 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.Adapters
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.horoscopo_android.Adapters.HoroscopeViewHolder
+import com.example.horoscopo_android.Data.Horoscopo
+import com.example.horoscopo_android.R
 
 class HoroscopeAdapter(
     var horoscopeList: List<Horoscopo>,

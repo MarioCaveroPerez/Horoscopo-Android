@@ -1,11 +1,12 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.Adapters
 
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.util.Locale
+import com.example.horoscopo_android.Data.Horoscopo
+import com.example.horoscopo_android.R
 
 class HoroscopeViewHolder(view: View): RecyclerView.ViewHolder(view)  {
 

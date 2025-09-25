@@ -1,4 +1,4 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.Adapters
 
 import android.view.Gravity
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class DescriptionPagerAdapter(
-    private val descriptions: List<String>
+    val descriptions: List<String>
 ) : RecyclerView.Adapter<DescriptionPagerAdapter.DescriptionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DescriptionViewHolder {
@@ -30,5 +30,3 @@ class DescriptionPagerAdapter(
     class DescriptionViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
 }
-
-

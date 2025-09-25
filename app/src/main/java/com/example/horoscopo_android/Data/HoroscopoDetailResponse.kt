@@ -1,4 +1,4 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.Data
 
 import com.google.gson.annotations.SerializedName
 

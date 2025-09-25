@@ -1,5 +1,6 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.Utils
 
+import com.example.horoscopo_android.Data.HoroscopoDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

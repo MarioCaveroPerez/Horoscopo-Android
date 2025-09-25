@@ -1,23 +1,18 @@
 package com.example.horoscopo_android
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.InputBinding
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.search.SearchBar
+import com.example.horoscopo_android.Activities.DetailHoroscopoActivity
+import com.example.horoscopo_android.Adapters.HoroscopeAdapter
+import com.example.horoscopo_android.Data.Horoscopo
 import com.ignite.material.searchbarview.SearchBarView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.Normalizer
 
 class MainActivity : AppCompatActivity() {
@@ -26,18 +21,18 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: HoroscopeAdapter
 
-    val horoscopoList: List<Horoscopo> = Horoscopo.getAll()
+    val horoscopoList: List<Horoscopo> = Horoscopo.Companion.getAll()
 
     private val detailLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+        if (result.resultCode == RESULT_OK) {
             val id = result.data?.getStringExtra("id")
             val isFavorite = result.data?.getBooleanExtra("isFavorite", false) ?: false
 
             // Actualizamos la lista y refrescamos adapter
             id?.let {
-                val prefs = getSharedPreferences("favorites", Context.MODE_PRIVATE)
+                val prefs = getSharedPreferences("favorites", MODE_PRIVATE)
                 prefs.edit().putBoolean(it, isFavorite).apply()
                 adapter.notifyDataSetChanged() // Se recargará el icono de favoritos
             }
