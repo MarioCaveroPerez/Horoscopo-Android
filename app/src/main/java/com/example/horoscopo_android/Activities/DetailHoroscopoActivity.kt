@@ -20,6 +20,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -132,16 +133,34 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                 val weeklyText = weeklyResponse.data.descriptionHoroscopo
                 val monthlyText = monthlyResponse.data.descriptionHoroscopo
 
+                val deviceLanguage = Locale.getDefault().language
+                val targetLangCode = when (deviceLanguage) {
+                    "es" -> TranslateLanguage.SPANISH
+                    "fr" -> TranslateLanguage.FRENCH
+                    "de" -> TranslateLanguage.GERMAN
+                    else -> TranslateLanguage.ENGLISH
+                }
 
+                suspend fun translateIfNeeded(text: String): String {
+                    return if (targetLangCode != TranslateLanguage.ENGLISH) {
+                        suspendCancellableCoroutine<String> { cont ->
+                            translateText(text, targetLangCode) { translated ->
+                                cont.resume(translated) {}
+                            }
+                        }
+                    } else {
+                        text
+                    }
+                }
+                val translatedDaily = translateIfNeeded(dailyText)
+                val translatedWeekly = translateIfNeeded(weeklyText)
+                val translatedMonthly = translateIfNeeded(monthlyText)
 
                 withContext(Dispatchers.Main) {
                     adapter = DescriptionPagerAdapter(
-                        listOf(
-                            dailyResponse.data.descriptionHoroscopo,
-                            weeklyResponse.data.descriptionHoroscopo,
-                            monthlyResponse.data.descriptionHoroscopo
-                        )
+                        listOf(translatedDaily, translatedWeekly, translatedMonthly)
                     )
+
                     viewPager.adapter = adapter
                 }
             } catch (e: Exception) {
