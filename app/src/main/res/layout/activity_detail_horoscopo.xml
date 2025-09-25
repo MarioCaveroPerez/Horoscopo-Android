@@ -65,14 +65,12 @@
                 android:textStyle="italic"
                 tools:text="12 de Marzo, 4 de Mayo" />
 
-            <TextView
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/tvDescriptionHoroscopoDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                tools:text="HOLA ME LLAMO MARIO"/>
+                android:padding="16dp"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

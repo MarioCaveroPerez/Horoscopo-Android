@@ -7,17 +7,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+
 
 class DetailHoroscopoActivity : AppCompatActivity() {
+
+    private lateinit var viewPager: ViewPager2
+    private lateinit var adapter: DescriptionPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class DetailHoroscopoActivity : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.imageHoroscopoDetail)
         val nameTextView = findViewById<TextView>(R.id.tvHoroscopoNameDetail)
         val dateTextView = findViewById<TextView>(R.id.tvDateHoroscopoDetail)
-        val dailyDescriptionTextView = findViewById<TextView>(R.id.tvDescriptionHoroscopoDetail)
+        viewPager = findViewById<ViewPager2>(R.id.tvDescriptionHoroscopoDetail)
 
         val name = intent.getStringExtra("name")
         val dates = intent.getStringExtra("dates")
@@ -41,11 +43,18 @@ class DetailHoroscopoActivity : AppCompatActivity() {
 
         nameTextView.text = name
         dateTextView.text = dates
-        dailyDescriptionTextView.text = "Cargando predicción..."
+        adapter = DescriptionPagerAdapter(
+            listOf(
+                "Cargando predicción diaria...",
+                "Cargando predicción semanal...",
+                "Cargando predicción mensual..."
+            )
+        )
+        viewPager.adapter = adapter
 
 
         val day = "today"
-        val sign = when(name?.lowercase()) {
+        val sign = when (name?.lowercase()) {
             "aries" -> "aries"
             "tauro" -> "taurus"
             "geminis" -> "gemini"
@@ -65,21 +74,38 @@ class DetailHoroscopoActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val apiService = getRetrofit().create(ApiService::class.java)
-                val response = apiService.getHoroscopo(sign, day)
+
+                val dailyResponse = apiService.getHoroscopodaily(sign, "today")
+                val weeklyResponse = apiService.getHoroscopoweekly(sign)
+                val monthlyResponse = apiService.getHoroscopomonthly(sign)
 
                 withContext(Dispatchers.Main) {
-                    dailyDescriptionTextView.text = response.data.descriptionHoroscopo
+                    adapter = DescriptionPagerAdapter(
+                        listOf(
+                            dailyResponse.data.descriptionHoroscopo,
+                            weeklyResponse.data.descriptionHoroscopo,
+                            monthlyResponse.data.descriptionHoroscopo
+                        )
+                    )
+                    viewPager.adapter = adapter
                 }
             } catch (e: Exception) {
                 e.printStackTrace() // Para ver el error real
                 withContext(Dispatchers.Main) {
-                    dailyDescriptionTextView.text = "Error al cargar la predicción."
+                    adapter = DescriptionPagerAdapter(
+                        listOf(
+                            "Error al cargar predicción diaria.",
+                            "Error al cargar predicción semanal.",
+                            "Error al cargar predicción mensual."
+                        )
+                    )
+                    viewPager.adapter = adapter
                 }
             }
         }
     }
 
-    private fun getRetrofit(): Retrofit{
+    private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://horoscope-app-api.vercel.app/")
             .addConverterFactory(GsonConverterFactory.create())
