@@ -3,6 +3,7 @@ package com.example.horoscopo_android.Adapters
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class DescriptionPagerAdapter(
@@ -22,7 +23,8 @@ class DescriptionPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: DescriptionViewHolder, position: Int) {
-        holder.textView.text = descriptions[position]
+        val rawText = descriptions[position]
+        holder.textView.text = HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 
     override fun getItemCount(): Int = descriptions.size

@@ -182,9 +182,9 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                         text
                     }
                 }
-                val translatedDaily = translateIfNeeded("DAILY PREDICTION:" + dailyText)
-                val translatedWeekly = translateIfNeeded("WEEKLY PREDICTION:" + weeklyText)
-                val translatedMonthly = translateIfNeeded("MONTHLY PREDICTION:" + monthlyText)
+                val translatedDaily = translateIfNeeded("<b>DAILY PREDICTION:</b><br><br>$dailyText")
+                val translatedWeekly = translateIfNeeded("<b>WEEKLY PREDICTION:</b><br><br>$weeklyText")
+                val translatedMonthly = translateIfNeeded("<b>MONTHLY PREDICTION:</b><br><br>$monthlyText")
 
                 withContext(Dispatchers.Main) {
                     adapter = DescriptionPagerAdapter(
