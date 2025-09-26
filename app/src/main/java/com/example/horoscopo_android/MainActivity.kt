@@ -34,11 +34,11 @@ class MainActivity : AppCompatActivity() {
                 val prefs = getSharedPreferences("favorites", MODE_PRIVATE)
                 prefs.edit().putBoolean(it, isFavorite).apply()
 
-                // Reordenar la lista según favoritos
                 adapter.updateList(getHoroscopoListSortedByFavorite())
             }
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun normalize(text: String): String {
         return Normalizer.normalize(text, Normalizer.Form.NFD)
-            .replace("\\p{Mn}+".toRegex(), "") // Elimina marcas diacríticas (acentos)
+            .replace("\\p{Mn}+".toRegex(), "")
             .lowercase()
     }
 

@@ -51,9 +51,9 @@ class DetailHoroscopoActivity : AppCompatActivity() {
 
         val tvTipoSigno = findViewById<TextView>(R.id.tvTipoSigno)
         val idRecibido = intent.getStringExtra("id") ?: ""
-        val horoscopoSeleccionado = Horoscopo.getAll().firstOrNull{it.id == idRecibido}
+        val horoscopoSeleccionado = Horoscopo.getAll().firstOrNull { it.id == idRecibido }
 
-        if(horoscopoSeleccionado != null) {
+        if (horoscopoSeleccionado != null) {
             when (horoscopoSeleccionado.id.lowercase()) {
                 "cancer", "escorpio", "piscis" -> {
                     tvTipoSigno.text = "AGUA"
@@ -78,13 +78,12 @@ class DetailHoroscopoActivity : AppCompatActivity() {
         }
         val btnShare = findViewById<ImageButton>(R.id.btnShare)
         btnShare.setOnClickListener {
-            // Obtener el texto de la predicción diaria (posición 0)
+
             val currentPosition = viewPager.currentItem
 
-            // Obtener el texto correspondiente de esa posición
-            val textToShare = adapter.descriptions.getOrNull(currentPosition) ?: "No hay predicción disponible"
+            val textToShare =
+                adapter.descriptions.getOrNull(currentPosition) ?: "No hay predicción disponible"
 
-            // Crear el Intent para compartir
             val shareIntent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, textToShare)
@@ -182,9 +181,13 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                         text
                     }
                 }
-                val translatedDaily = translateIfNeeded("<b>DAILY PREDICTION:</b><br><br>$dailyText")
-                val translatedWeekly = translateIfNeeded("<b>WEEKLY PREDICTION:</b><br><br>$weeklyText")
-                val translatedMonthly = translateIfNeeded("<b>MONTHLY PREDICTION:</b><br><br>$monthlyText")
+
+                val translatedDaily =
+                    translateIfNeeded("<b>DAILY PREDICTION:</b><br><br>$dailyText")
+                val translatedWeekly =
+                    translateIfNeeded("<b>WEEKLY PREDICTION:</b><br><br>$weeklyText")
+                val translatedMonthly =
+                    translateIfNeeded("<b>MONTHLY PREDICTION:</b><br><br>$monthlyText")
 
                 withContext(Dispatchers.Main) {
                     adapter = DescriptionPagerAdapter(
@@ -194,7 +197,7 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                     viewPager.adapter = adapter
                 }
             } catch (e: Exception) {
-                e.printStackTrace() // Para ver el error real
+                e.printStackTrace()
                 withContext(Dispatchers.Main) {
                     adapter = DescriptionPagerAdapter(
                         listOf(
@@ -214,12 +217,14 @@ class DetailHoroscopoActivity : AppCompatActivity() {
         val drawable = if (isFavorite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
         btnFavorite.setImageResource(drawable)
     }
+
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://horoscope-app-api.vercel.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
     fun translateText(inputText: String, targetLanguage: String, onResult: (String) -> Unit) {
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)

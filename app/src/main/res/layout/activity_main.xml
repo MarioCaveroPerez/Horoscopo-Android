@@ -13,32 +13,33 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:src="@color/background_principal"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.ignite.material.searchbarview.SearchBarView
         android:id="@+id/sbvHoroscope"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Search items..."
-        app:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         app:backgroundColor="?attr/colorSurfaceVariant"
-        app:textColor="?attr/colorOnSurface"
+        app:hint="Search items..."
         app:iconTint="?attr/colorOnSurfaceVariant"
+        app:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        app:textColor="?attr/colorOnSurface"
         tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHoroscope"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="16dp"
-        tools:listitem="@layout/item_horoscopo"
-        app:layout_constraintTop_toBottomOf="@+id/sbvHoroscope">
+        app:layout_constraintTop_toBottomOf="@+id/sbvHoroscope"
+        tools:listitem="@layout/item_horoscopo">
+
     </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
