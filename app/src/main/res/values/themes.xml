@@ -2,6 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.HoroscopoAndroid" parent="Theme.Material3.DayNight.NoActionBar">
 
+        <item name="android:statusBarColor">@color/background_principal</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/background_principal</item>
     </style>
 
 </resources>

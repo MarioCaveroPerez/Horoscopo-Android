@@ -7,10 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.horoscopo_android.Adapters.DescriptionPagerAdapter
+import com.example.horoscopo_android.Data.Horoscopo
 import com.example.horoscopo_android.Utils.ApiService
 import com.example.horoscopo_android.R
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -46,6 +48,34 @@ class DetailHoroscopoActivity : AppCompatActivity() {
             insets
         }
 
+
+        val tvTipoSigno = findViewById<TextView>(R.id.tvTipoSigno)
+        val idRecibido = intent.getStringExtra("id") ?: ""
+        val horoscopoSeleccionado = Horoscopo.getAll().firstOrNull{it.id == idRecibido}
+
+        if(horoscopoSeleccionado != null) {
+            when (horoscopoSeleccionado.id.lowercase()) {
+                "cancer", "escorpio", "piscis" -> {
+                    tvTipoSigno.text = "AGUA"
+                    tvTipoSigno.setTextColor(ContextCompat.getColor(this, R.color.blue))
+                }
+
+                "aries", "leo", "sagitario" -> {
+                    tvTipoSigno.text = "FUEGO"
+                    tvTipoSigno.setTextColor(ContextCompat.getColor(this, R.color.red))
+                }
+
+                "geminis", "libra", "acuario" -> {
+                    tvTipoSigno.text = "AIRE"
+                    tvTipoSigno.setTextColor(ContextCompat.getColor(this, R.color.green))
+                }
+
+                "tauro", "virgo", "capricornio" -> {
+                    tvTipoSigno.text = "TIERRA"
+                    tvTipoSigno.setTextColor(ContextCompat.getColor(this, R.color.brown))
+                }
+            }
+        }
         val btnShare = findViewById<ImageButton>(R.id.btnShare)
         btnShare.setOnClickListener {
             // Obtener el texto de la predicción diaria (posición 0)
@@ -152,9 +182,9 @@ class DetailHoroscopoActivity : AppCompatActivity() {
                         text
                     }
                 }
-                val translatedDaily = translateIfNeeded(dailyText)
-                val translatedWeekly = translateIfNeeded(weeklyText)
-                val translatedMonthly = translateIfNeeded(monthlyText)
+                val translatedDaily = translateIfNeeded("DAILY PREDICTION:" + dailyText)
+                val translatedWeekly = translateIfNeeded("WEEKLY PREDICTION:" + weeklyText)
+                val translatedMonthly = translateIfNeeded("MONTHLY PREDICTION:" + monthlyText)
 
                 withContext(Dispatchers.Main) {
                     adapter = DescriptionPagerAdapter(
@@ -191,30 +221,27 @@ class DetailHoroscopoActivity : AppCompatActivity() {
             .build()
     }
     fun translateText(inputText: String, targetLanguage: String, onResult: (String) -> Unit) {
-        // Crear opciones de traductor
         val options = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.ENGLISH) // asumiendo que la API siempre da inglés
+            .setSourceLanguage(TranslateLanguage.ENGLISH)
             .setTargetLanguage(targetLanguage)
             .build()
 
         val translator: Translator = Translation.getClient(options)
 
-        // Descargar modelo si no está disponible
         translator.downloadModelIfNeeded()
             .addOnSuccessListener {
-                // Traducir el texto
                 translator.translate(inputText)
                     .addOnSuccessListener { translatedText ->
                         onResult(translatedText)
                     }
                     .addOnFailureListener { e ->
                         e.printStackTrace()
-                        onResult(inputText) // fallback a texto original
+                        onResult(inputText)
                     }
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
-                onResult(inputText) // fallback a texto original
+                onResult(inputText)
             }
     }
 }

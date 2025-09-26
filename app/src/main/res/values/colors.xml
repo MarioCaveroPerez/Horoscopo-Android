@@ -5,6 +5,9 @@
     <color name="background_principal">#16406D</color>
     <color name="background_svb">#2262A8</color>
     <color name="red">#FF0000</color>
+    <color name="blue">#003EFF</color>
+    <color name="green">#4CFF00</color>
+    <color name="brown">#FFBB00</color>
 
 
 </resources>

@@ -129,10 +129,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
-                    android:text="FUEGO"
+                    tools:text="FUEGO"
                     android:textSize="60sp"
                     android:textStyle="bold"
-                    android:textColor="@color/red" />
+                    tools:textColor="@color/red" />
 
             </LinearLayout>
         </ScrollView>
