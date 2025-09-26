@@ -30,11 +30,12 @@ class MainActivity : AppCompatActivity() {
             val id = result.data?.getStringExtra("id")
             val isFavorite = result.data?.getBooleanExtra("isFavorite", false) ?: false
 
-            // Actualizamos la lista y refrescamos adapter
             id?.let {
                 val prefs = getSharedPreferences("favorites", MODE_PRIVATE)
                 prefs.edit().putBoolean(it, isFavorite).apply()
-                adapter.notifyDataSetChanged() // Se recargará el icono de favoritos
+
+                // Reordenar la lista según favoritos
+                adapter.updateList(getHoroscopoListSortedByFavorite())
             }
         }
     }
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         sbvHoroscopo = findViewById(R.id.sbvHoroscope)
         recyclerView = findViewById(R.id.rvHoroscope)
 
-        adapter = HoroscopeAdapter(horoscopoList) { selectedHoroscopo ->
+        adapter = HoroscopeAdapter(getHoroscopoListSortedByFavorite()) { selectedHoroscopo ->
             val intent = Intent(this, DetailHoroscopoActivity::class.java).apply {
                 putExtra("id", selectedHoroscopo.id)
                 putExtra("name", getString(selectedHoroscopo.name))
@@ -88,5 +89,11 @@ class MainActivity : AppCompatActivity() {
             .replace("\\p{Mn}+".toRegex(), "") // Elimina marcas diacríticas (acentos)
             .lowercase()
     }
+
+    private fun getHoroscopoListSortedByFavorite(): List<Horoscopo> {
+        val prefs = getSharedPreferences("favorites", MODE_PRIVATE)
+        return horoscopoList.sortedWith(compareByDescending { prefs.getBoolean(it.id, false) })
+    }
+
 
 }
