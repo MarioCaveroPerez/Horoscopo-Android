@@ -8,5 +8,5 @@
         android:title="Lazos Zodiacales"/>
     <item
         android:id="@+id/menu_amor"
-        android:title="Cómo te va a ir en el amor"/>
+        android:title="Saber tu Fortuna"/>
 </menu>

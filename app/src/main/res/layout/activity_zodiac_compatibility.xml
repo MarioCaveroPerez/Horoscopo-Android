@@ -9,7 +9,6 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ZodiacCompatibilityActivity">
 
-    <!-- Toolbar en la parte superior -->
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_layout"

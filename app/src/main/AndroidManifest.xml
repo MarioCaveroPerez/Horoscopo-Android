@@ -22,7 +22,7 @@
             android:theme="@style/Theme.HoroscopoAndroid"
             android:exported="false" />
         <activity
-            android:name=".Activity_menu"
+            android:name=".Activities.Activity_menu"
             android:exported="false" />
         <activity
             android:name=".Activities.DetailHoroscopoActivity"

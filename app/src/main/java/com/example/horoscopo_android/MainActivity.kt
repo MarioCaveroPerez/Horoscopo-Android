@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Horóscopo"
+        supportActionBar?.title = "Signos Zodiacales"
 
         sbvHoroscopo = findViewById(R.id.sbvHoroscope)
         recyclerView = findViewById(R.id.rvHoroscope)
