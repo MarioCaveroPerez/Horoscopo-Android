@@ -22,8 +22,8 @@ class ZodiacCompatibilityActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Lazos Zodiacales"
 
-        val imageView = findViewById<ImageView>(R.id.imageCompatibility)
-        imageView.setImageResource(R.mipmap.zodiac_compatibility)
+      /*  val imageView = findViewById<ImageView>(R.id.imageCompatibility)
+        imageView.setImageResource(R.drawable.imagen_compatibilidad_zodiacal)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
