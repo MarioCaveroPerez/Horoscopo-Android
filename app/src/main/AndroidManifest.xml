@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HoroscopoAndroid">
         <activity
-            android:name=".Activities.DetailHoroscopoActivity"
+            android:name=".Activities.ZodiacCompatibilityActivity"
             android:theme="@style/Theme.HoroscopoAndroid"
             android:exported="false" />
+        <activity
+            android:name=".Activities.AmorActivity"
+            android:theme="@style/Theme.HoroscopoAndroid"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_menu"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DetailHoroscopoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HoroscopoAndroid" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

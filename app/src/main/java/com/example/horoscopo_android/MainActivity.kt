@@ -2,14 +2,19 @@ package com.example.horoscopo_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.horoscopo_android.Activities.AmorActivity
 import com.example.horoscopo_android.Activities.DetailHoroscopoActivity
+import com.example.horoscopo_android.Activities.ZodiacCompatibilityActivity
 import com.example.horoscopo_android.Adapters.HoroscopeAdapter
 import com.example.horoscopo_android.Data.Horoscopo
 import com.ignite.material.searchbarview.SearchBarView
@@ -49,6 +54,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Horóscopo"
 
         sbvHoroscopo = findViewById(R.id.sbvHoroscope)
         recyclerView = findViewById(R.id.rvHoroscope)
@@ -95,5 +104,21 @@ class MainActivity : AppCompatActivity() {
         return horoscopoList.sortedWith(compareByDescending { prefs.getBoolean(it.id, false) })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_lazos -> {
+                startActivity(Intent(this, ZodiacCompatibilityActivity::class.java))
+            }
+            R.id.menu_amor -> {
+                startActivity(Intent(this, AmorActivity::class.java))
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
