@@ -219,32 +219,24 @@ class DetailHoroscopoActivity : AppCompatActivity() {
     }
 
     private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://horoscope-app-api.vercel.app/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return Retrofit.Builder().baseUrl("https://horoscope-app-api.vercel.app/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
     fun translateText(inputText: String, targetLanguage: String, onResult: (String) -> Unit) {
-        val options = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.ENGLISH)
-            .setTargetLanguage(targetLanguage)
-            .build()
+        val options = TranslatorOptions.Builder().setSourceLanguage(TranslateLanguage.ENGLISH)
+            .setTargetLanguage(targetLanguage).build()
 
         val translator: Translator = Translation.getClient(options)
 
-        translator.downloadModelIfNeeded()
-            .addOnSuccessListener {
-                translator.translate(inputText)
-                    .addOnSuccessListener { translatedText ->
+        translator.downloadModelIfNeeded().addOnSuccessListener {
+                translator.translate(inputText).addOnSuccessListener { translatedText ->
                         onResult(translatedText)
-                    }
-                    .addOnFailureListener { e ->
+                    }.addOnFailureListener { e ->
                         e.printStackTrace()
                         onResult(inputText)
                     }
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 e.printStackTrace()
                 onResult(inputText)
             }
