@@ -37,6 +37,28 @@
     <string name="mensaje_malo">El día podría traer algunos malentendidos o pequeños conflictos en tu vida sentimental. Mantén la calma y evita tomar decisiones impulsivas. La paciencia y la comunicación serán claves para superar los obstáculos y prevenir problemas mayores.</string>
 
     <string name="mensaje_muy_malo">Hoy es un día complicado para el amor. Podrían surgir discusiones o decepciones inesperadas. Evita confrontaciones y no te dejes llevar por impulsos negativos. Mantente firme, cuida tus emociones y recuerda que los malos momentos también pasan.</string>
+    <string name="zodiac_compatibility_next">Next</string>
+    <string name="averigua_como_de_fuerte_son_vuestros_lazos">AVERIGUA COMO DE FUERTE SON VUESTROS LAZOS</string>
+    <string name="chose_sign">ELIJA SU SIGNO</string>
+    <string name="compat_bad">MALO MALO MALO</string>
+    <string name="compat_normal">NORMAL NORMAL NORMAL</string>
+    <string name="compat_good">BUENO BUENO BUENO</string>
+
+    <string-array name="zodiac_array">
+        <item>Elija su signo...</item>
+        <item>Aries</item>
+        <item>Tauro</item>
+        <item>Géminis</item>
+        <item>Cáncer</item>
+        <item>Leo</item>
+        <item>Virgo</item>
+        <item>Libra</item>
+        <item>Escorpio</item>
+        <item>Sagitario</item>
+        <item>Capricornio</item>
+        <item>Acuario</item>
+        <item>Piscis</item>
+    </string-array>
 
 
 </resources>

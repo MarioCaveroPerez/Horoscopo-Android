@@ -13,14 +13,68 @@
         layout="@layout/toolbar_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageCompatibility"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+
+    <TextView
+        android:id="@+id/tvTittleZodiac"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="26sp"
+        android:text="@string/averigua_como_de_fuerte_son_vuestros_lazos"/>
+
+
+    <Spinner
+        android:id="@+id/spZodiac1"
+        android:layout_width="250dp"
+        android:layout_height="36dp"
+        android:entries="@array/zodiac_array"
+        android:backgroundTint="@color/white"
+        android:background="@color/white"
+        android:prompt="@string/chose_sign"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleZodiac"
+        android:layout_marginTop="56dp"/>
+
+    <ImageView
+        android:id="@+id/image_corazon_zodiac"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spZodiac1"
+        android:layout_marginTop="46dp"
+        android:src="@drawable/ic_heart_filled" />
+
+
+    <Spinner
+        android:id="@+id/spZodiac2"
+        android:layout_width="250dp"
+        android:layout_height="36dp"
+        android:entries="@array/zodiac_array"
+        android:backgroundTint="@color/white"
+        android:background="@color/white"
+        android:prompt="@string/chose_sign"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_corazon_zodiac"
+        android:layout_marginTop="56dp"/>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="26dp"
+        android:textSize="20sp"
+        android:text="@string/zodiac_compatibility_next"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
