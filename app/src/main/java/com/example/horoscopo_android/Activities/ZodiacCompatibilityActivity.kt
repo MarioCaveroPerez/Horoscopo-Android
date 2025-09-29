@@ -4,12 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.horoscopo_android.MainActivity
 import com.example.horoscopo_android.R
 
@@ -22,8 +18,8 @@ class ZodiacCompatibilityActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Lazos Zodiacales"
 
-      /*  val imageView = findViewById<ImageView>(R.id.imageCompatibility)
-        imageView.setImageResource(R.drawable.imagen_compatibilidad_zodiacal)*/
+        /*  val imageView = findViewById<ImageView>(R.id.imageCompatibility)
+          imageView.setImageResource(R.drawable.imagen_compatibilidad_zodiacal)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -32,10 +28,11 @@ class ZodiacCompatibilityActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.menu_signos -> {
                 startActivity(Intent(this, MainActivity::class.java))
             }
+
             R.id.menu_amor -> {
                 startActivity(Intent(this, AmorActivity::class.java))
             }

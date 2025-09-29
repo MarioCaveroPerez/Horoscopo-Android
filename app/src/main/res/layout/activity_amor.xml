@@ -4,68 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loveLayout"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".Activities.AmorActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_layout"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTittleAmor"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="30sp"
         android:layout_marginTop="120dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:text="Manten pulsado para saber tu fortuna"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Manten pulsado para saber tu fortuna"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_tittle_amor"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:text="TU FORTUNA ES:"
         android:textColor="@color/black"
+        android:textSize="36sp"
         android:textStyle="bold"
         android:visibility="gone"
-        android:gravity="center"
-        android:textSize="36sp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="TU FORTUNA ES:"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/tv_amor"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        android:gravity="center"
-        android:textSize="32sp"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tittle_amor"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="HOLAHOLAHOLA"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tittle_amor"
+        tools:text="HOLAHOLAHOLA" />
 
     <ImageView
         android:id="@+id/image_circle_amor"
         android:layout_width="350dp"
         android:layout_height="350dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_circle"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvLoveMessage"
@@ -73,29 +73,29 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:textStyle="italic"
-        android:textSize="24sp"
+        android:text=""
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text=""/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_probar_otra_vez"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/toolbar"
+        android:text="Probar Otra Vez"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         android:textStyle="italic"
         android:visibility="gone"
-        android:backgroundTint="@color/toolbar"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Probar Otra Vez"
-        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

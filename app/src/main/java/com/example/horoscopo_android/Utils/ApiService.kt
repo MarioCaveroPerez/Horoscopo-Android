@@ -7,8 +7,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("/api/v1/get-horoscope/daily")
     suspend fun getHoroscopodaily(
-        @Query("sign") sign: String,
-        @Query("day") day: String
+        @Query("sign") sign: String, @Query("day") day: String
     ): HoroscopoDetailResponse
 
     @GET("/api/v1/get-horoscope/weekly")

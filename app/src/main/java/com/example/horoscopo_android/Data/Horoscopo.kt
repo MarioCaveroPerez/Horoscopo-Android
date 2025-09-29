@@ -3,10 +3,7 @@ package com.example.horoscopo_android.Data
 import com.example.horoscopo_android.R
 
 data class Horoscopo(
-    val id: String,
-    val name: Int,
-    val dates: Int,
-    val icon: Int
+    val id: String, val name: Int, val dates: Int, val icon: Int
 ) {
 
     companion object {

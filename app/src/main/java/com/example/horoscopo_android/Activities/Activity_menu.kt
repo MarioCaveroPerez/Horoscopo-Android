@@ -29,9 +29,11 @@ class Activity_menu : AppCompatActivity() {
             R.id.menu_signos -> {
                 startActivity(Intent(this, MainActivity::class.java))
             }
+
             R.id.menu_lazos -> {
                 startActivity(Intent(this, ZodiacCompatibilityActivity::class.java))
             }
+
             R.id.menu_amor -> {
                 startActivity(Intent(this, AmorActivity::class.java))
             }

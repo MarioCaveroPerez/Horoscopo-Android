@@ -94,8 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun normalize(text: String): String {
-        return Normalizer.normalize(text, Normalizer.Form.NFD)
-            .replace("\\p{Mn}+".toRegex(), "")
+        return Normalizer.normalize(text, Normalizer.Form.NFD).replace("\\p{Mn}+".toRegex(), "")
             .lowercase()
     }
 
@@ -110,10 +109,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.menu_lazos -> {
                 startActivity(Intent(this, ZodiacCompatibilityActivity::class.java))
             }
+
             R.id.menu_amor -> {
                 startActivity(Intent(this, AmorActivity::class.java))
             }

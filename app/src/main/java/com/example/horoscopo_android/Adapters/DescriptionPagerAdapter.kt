@@ -13,8 +13,7 @@ class DescriptionPagerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DescriptionViewHolder {
         val tv = TextView(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
             textSize = 18f
             gravity = Gravity.CENTER

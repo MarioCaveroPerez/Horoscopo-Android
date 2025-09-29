@@ -6,12 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.horoscopo_android.MainActivity
 import com.example.horoscopo_android.R
 import android.os.Handler
@@ -30,7 +27,7 @@ class AmorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_amor)
 
-         mensajes =     listOf(
+        mensajes = listOf(
             getString(R.string.mensaje_muy_bueno),
             getString(R.string.mensaje_bueno),
             getString(R.string.mensaje_normal),
@@ -75,26 +72,32 @@ class AmorActivity : AppCompatActivity() {
                                 text.text = "MUY BUENA"
                                 text.setTextColor(ContextCompat.getColor(this, R.color.green))
                             }
+
                             getString(R.string.mensaje_bueno) -> {
                                 text.text = "BUENA"
                                 text.setTextColor(ContextCompat.getColor(this, R.color.blue))
                             }
+
                             getString(R.string.mensaje_normal) -> {
                                 text.text = "NORMAL"
                                 text.setTextColor(ContextCompat.getColor(this, R.color.brown))
                             }
+
                             getString(R.string.mensaje_malo) -> {
                                 text.text = "MALA"
                                 text.setTextColor(ContextCompat.getColor(this, R.color.orange))
                             }
+
                             getString(R.string.mensaje_muy_malo) -> {
                                 text.text = "MUY MALA"
                                 text.setTextColor(ContextCompat.getColor(this, R.color.red))
                             }
+
                             else -> text.text = ""
                         }
                     }, holdTime)
                 }
+
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     handler.removeCallbacksAndMessages(null)
                     // Restaurar circulo a su estado inicial si no se completó el hold
